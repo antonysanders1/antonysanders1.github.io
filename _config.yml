@@ -1,11 +1,11 @@
 # Site settings
-author: Antony Sanders
-title: 
+author: Antony D Sanders
+title: My First CLI Project
 header-img: img/home-bg.png
 email: antony.devon92@gmail.com
-copyright_name: Antony Sanders
+copyright_name: Antony D Sanders
 description: > # this means to ignore newlines until "baseurl:"
-  
+  Creating a Ruby Gem
 baseurl: "" # the subpath of your site, e.g. /blog
 twitter_username: 
 github_username:  antonysanders1

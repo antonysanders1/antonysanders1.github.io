@@ -1,7 +1,7 @@
 ---
 layout: post
-title:      "My First Rubt Gem"
-date:       2020-01-17 18:29:09 +0000
+title:      "My First Ruby Project"
+date:       2020-01-17 13:29:09 -0500
 permalink:  my_first_rubt_gem
 ---
 

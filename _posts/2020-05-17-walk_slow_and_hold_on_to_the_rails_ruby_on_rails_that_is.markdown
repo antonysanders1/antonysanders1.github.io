@@ -1,7 +1,7 @@
 ---
 layout: post
 title:      "Walk Slow and Hold on to the Rails, Ruby On Rails that is…"
-date:       2020-05-17 14:28:15 +0000
+date:       2020-05-17 10:28:16 -0400
 permalink:  walk_slow_and_hold_on_to_the_rails_ruby_on_rails_that_is
 ---
 
@@ -27,6 +27,8 @@ When being introduced to Rails I was so intrigued to hear about "the magic of Ra
 **When you're in a bind** - When learning first ruby, I came in contact with a very helpful debugging tool called pry.  Its almost inevitable that when coding you'll hit a snag, and pry is a good tool to help you see into the situation. Inserting "binding.pry" into your code allows you to stop your code at that certain point so that you can run tests for a better understanding on why your code may be breaking. Pry won't solve every issue, but luckily Rails also has extensive guides to help steer you in the right direction if you're not quite sure how to make something work. The Rails community is also vast, so you can even at times rely on the help from other rubyists.
 
 There were many learning curves when building my project, however it was one of the most rewarding things i've done so far relating to software engineering, and needless to say I did get to see some of that rails magic up close. Some of my favorite things to learn and do were generating migrations *(which can create databases, MVCs, and even entire websites with just a few lines of code in the terminal)*, discovering new gems, and setting up third party authenticators like Google and Facebook. I look forward to creating more apps/sites with ruby in the future and growing as a software engineer.
+
+A view of my project can be found[ here](https://github.com/antonysanders1/shopilator)
 
 **<% end %>**
 

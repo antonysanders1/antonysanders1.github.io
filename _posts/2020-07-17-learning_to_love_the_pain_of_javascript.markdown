@@ -1,7 +1,7 @@
 ---
 layout: post
 title:      "Learning to Love The pain... of JavaScript"
-date:       2020-07-17 08:00:22 +0000
+date:       2020-07-17 04:00:23 -0400
 permalink:  learning_to_love_the_pain_of_javascript
 ---
 
@@ -23,8 +23,8 @@ This will auto populate most of what you'll need to create your API. After addin
 Next I created a GitHub repository that I would push and house all of my final code changes.  I learned the hard way that you have to be careful when pushing to GitHub because if you push to GH from an inner directory (i.e the backend_api folder), you'll endup creating a locked repo inside your main repo and that you can't access and it's a headache to fix. 
 
 **The Meat and Potatoes**
-Once the preliminary stuff was all setup and out of the way, It was time to start working on the most imprtant part, the frontend. Within the Frontend I needed to create the index.html file for document structure, a styles.css file for *(you guessed it)* styling, and all of the script files *(Javascript)* that would work with both the HTML and CSS files to handle visibilty, styling, and interactivity. 
-Note: Its best practice to place all of these files in their respective directories and sub directories to help seperate concerns. Below is a quick look at my file tree which could be deemed a recommended structure:
+Once the preliminary stuff was all setup and out of the way, It was time to start working on the most imprtant part, the frontend. Within the Frontend I needed to create the `index.html` file for document structure, a `styles.css` file for *(you guessed it)* styling, and all of the script files *(Javascript)* like `index.js` that will and work with both the HTML and CSS files to handle visibilty, styling, and interactivity. 
+`Note: Its best practice to place all of these files in their respective directories and sub directories to help seperate concerns. Below is a quick look at my file tree which could be deemed a recommended structure:`
 ```
 ˅ frontend
 |  ˅ src
@@ -40,7 +40,10 @@ Note: Its best practice to place all of these files in their respective director
 |  show_clear.js
 ```
 
-It was interesting, thrilling, and even frustrating at times when making chages to the DOM via my JS files. I quickly learned that you have to be very calculated with what you decide to manipulate because it could affect how the entire web page looks and/or operates -- and the more functional you want your app, the more calculated to have to be. There's nothing worse than having tiny bugs in your code and not being able to find and debug them easily.
+Another awesome thing that javascript files can do is make fetch requests to the API.* Now we're actually connecting our frontend and back end!* Fetch requests are asychronis functions that allow us to make GET, POST, UPDATE, and DELETE requests to our backend API. In simple talk this means that we can either get or edit the data from out API and later do something else with it like diplay it in the DOM. All asychronis means is that while our request is running in the background *(because getting a lot of data can take some time)*, the rest of our code can still execute to help decrease load times. This is possible because a fetch request always returns a promise *(you always get something back whether it be the data requested or an error status)*.
+`Note: Its best practices that you ensure that your js fils are handling only one thing. For example DOM related functions, class functions and fetch requests should be handled in three seperate js files.`
+
+It was interesting, thrilling, and even frustrating at times when making chages to the DOM via my JS files. I quickly learned that you have to be very calculated with what you decide to manipulate because it could affect how the entire web page looks and/or operates -- and the more functional you want your app, the more calculated to have to be. There's nothing worse than having tiny bugs in your code and not being able to find and debug them easily. Once you've got everything working, it's now a great idea to DRY up your code, removing any duplicate code to make cleaner synatx.
 
 **In Walks Debugging**
 If its one thing you'll need as a fresh JS developer it's the good ol' `console.log()`. The console.log is a great tool to assist developers debug their code. If something isn't quite working the way you want, you can add console.log() between lines of code where you think you have an error. You then pass in whatever it is you wish inside the console.og parenthesis *(usually the thing you're trying to debug)*. I can say that logging to the console definitly got me through to the end of my project.

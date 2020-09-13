@@ -1,7 +1,7 @@
 ---
 layout: post
 title:      " Managing State In Large Applications With Redux"
-date:       2020-09-13 23:07:17 +0000
+date:       2020-09-13 19:07:18 -0400
 permalink:  managing_state_in_large_applications_with_redux
 ---
 

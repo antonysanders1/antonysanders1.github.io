@@ -16,14 +16,17 @@ After creating a new react app, the first thing you're going to want to do is im
 
 react redux the official react binding for redux. It lets your react components read data from a redux store and dispatch actions to the store to update data (more on this later.)
 
-3. `yarn add rdux-thunk`
+3. `yarn add redux-thunk`
 
-Actions AR plain o ld JavaScript objects. Redux-thunk is a middleware that give actions the ability the pass functions, looks at every action that passes through the system, and if it's a function, it calls that function. More on this here.
+Actions are plain old JavaScript objects. Redux-thunk is a middleware that give actions the ability the pass functions, then looks at every action that passes through the system, and if it's a function, it calls that function. More on this [here](http://github.com/reduxjs/redux-thunk).
 
 
 Once these libraries have been added to your package.json file, it's time to import them in your index component.
 
 ```
+// ./src/index.jsx
+
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
@@ -48,13 +51,17 @@ ReactDOM.render(
 );
 ```
 
-In the above code, it's important to note that I'm doing that a few things here. First, I am importing my libraries and creating a store variable that takes in the reducer as the first argument. The second argument is accessing the browser to find a method called REDUX_DEVTOOLS_EXTENSION__. This communicates with a chrome extension that allows you to have an in browser view of the store and each action that is dispatched. More on this here. I am then wrapping the app component inside a provider component and passing the store as a prop to the app component, so is that the entire application can have access to the store (which is where our state is being managed). Whew! Brain hurting yet?
+In the above code snippet, it's important to note that I'm doing that a few things here. First, I am importing my libraries and creating a store variable that takes in the reducer as the first argument. The second argument is accessing the browser to find a method called REDUX_DEVTOOLS_EXTENSION__. This communicates with a chrome extension that allows you to have an in browser view of the store and each action that is dispatched. More on this [here](http://chrome.google.com/webstore/detail/redux-devtools/lmkhkpmbekcpmknklioeiffkpmmfibljd?hl=en). I am then wrapping the app component inside a provider component and passing the store as a prop to the app component, so is that the entire application can have access to the store (which is where our state is being managed). Whew! Brain hurting yet?
 
 Next lets setup our reducer.
 
-*NOTE: You don't have to do the steps in any particular order, just as long as they all get done. But I'll go through the steps in a way that I think will be easy for you to follow.*
+*NOTE: You don't have to do these steps in any particular order, just as long as they all get done. But I'll go through the steps in a way that I think will be easy for you to follow.*
 
 ```
+
+// ./reducers/reducers.jsx
+
+
 export default (state = {}, action) => {
     switch (action.type) {
 
@@ -70,11 +77,14 @@ export default (state = {}, action) => {
 };
 ```
 
-In the code above we are exporting a function - passing in the initial state as an empty object, and and action as the second argument. The function then uses conditions based on the type of action and then dispatches that action. If none of the conditions are met, we'll return the initial state.
+In the code above we are exporting a function - passing in the initial state as an empty object, and an action as the second argument. The function then uses conditions based on the type of action and then dispatches that action. If none of the conditions are met, we'll return the initial state.
 
 Okay. Now let's set up an action file that will get our users from our database and another that will log them in.
 
 ```
+
+// ./src/actions/action.jsx
+
 //---------------------------------------------------------------------
 //-----------------------------------------------------------LOGIN_USER
 export const loginUser = (payload, callback) => async(dispatch) => {
@@ -118,16 +128,19 @@ export const getUser = () => {
 }
 ```
 
-I'm not going to go into too much detail about this part, but because we are using redux-thunk, our actions can optionally be functions. As you see above, these functions are just a simple fetch requests. But you'll notice that after we get the the responses, we grab tht user data and dispatch the action types, passing in the user data as a user object into the state. Still with me?
+I'm not going to go into too much detail about this part, but because we are using redux-thunk, our actions can optionally be functions. As you see above, these actions (functions) are just a simple fetch requests. But you'll notice that after we get the the responses, we grab that user data and dispatch the action types, passing in the user data as a user object into the state via the reducer. Still with me?
 
-Sweet. If we set this up correctly, we can test it immediately after setting up a few components. So let's do that!
+Sweet! If we set this up correctly, we can test it immediately after setting up a few components. So let's do that!
 
-*NOTE: Its important to note that I am making requests to a Rails API that I created. thats running on localhoat:3000.*
+*NOTE: Its important to note that I am making my requests to a Rails API that I created in conjuction with my client that runs on localhost:3000.*
 
-Next we'll look at the app component.
+Next we'll take a look at the app component.
 
 
 ```
+
+// ./src/App.jsx
+
 import React from 'react';
 import NavBar from './NavBar';
 import {connect} from 'react-redux'
@@ -160,13 +173,16 @@ export default connect(mapState, {getUser})(App);
 ```
 
 
-The app component imports the action, calls the action when the component mounts, then passes in the props of user to the navbar component. Additionally, and very importantly we are dispatching our action using export default connect. Using connect allows up to access our store. 
+The app component imports the getUser action from the action.jsx file, calls the action when the component mounts, then passes in the props of user to the navbar component. Additionally, and very importantly we are dispatching our action using export default connect. Using connect allows up to access our store. *We can use connect in any component that we wish to pass state to or dispatch actions to update the state.* 
 
 Next The NavBar...
 
-*NOTE: I used Material UI for styling.. You can ignore the stlying code (i.e. Grid, Typography, Divider, Button). *
+*NOTE: I used Material UI for styling.. You can ignore the stlying code if you're no familar with it (i.e. Grid, Typography, Divider, Button). *
 
 ```
+
+// ./src/NavBar.jsx
+
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom';
 import {Grid, Typography, Divider, Button} from '@material-ui/core';
@@ -251,14 +267,21 @@ const mapState = ({user}) => {
 
 export default compose(
   withStyles(styles, {name: 'App',}),
-  connect(mapState, {logoutUser}))(NavBar);
+  connect(mapState))(NavBar);
 ```
 
-My navbar component uses the react-router-dom library to set up routing. As you can see above our home component will render at the URLs index and the login component at the url extention "/login". Also see that here we are mapping the state and passing it in our export connect.
+My navbar component uses the react-router-dom library to set up client side routing. As you can see above our home component will render at the URLs index *(localhost:3001/)* and the login component at the url extention "/login". Also see that here we are mapping the state and passing it in our export default connect. 
 
-Let's take a look at the Login component.
+Note: I needed to import an additional library "recompse" so that I could export the App component with the Maaterial UI styling and connect. Im most cases your export would look like this: 
+
+`export default connect(mapState)(NavBar)`
+
+Okay, next let's take a look at the Login component.
 
 ```
+
+./src/components/Login.jsx
+
 import React from 'react';
 import {Container, Avatar, Button, CssBaseline, TextField, FormControlLabel, Checkbox, Link, Box, Grid, Typography} from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
@@ -378,8 +401,9 @@ export default compose(
 ```
 
 In this component you'll notice some similarities in regards to importing the needed actions and also mapping the state and dispatch and the export connect.
-Additionally in this component, we set the initial state whiskey pair values that have a value of empty strings list. In the render we are returning a form that will update that components state, then save it in the store on submit.
+Additionally in this component, we set the initial state as an object with key pair values that have a value(s) of an empty string. In the render we are returning a form that will update that components state onChange, then save it in the store onSubmit.
 
 If everything is coded correctly, then you would have successfully set up redux and can now see the store updated in the redux devtools. Additionally you now have access the props of the store by mapping the state to that specific component(s) you want. 
 
-Hopefully this was hepful you! Happy coding!
+Hopefully this was hepful to you!
+Happy coding!
